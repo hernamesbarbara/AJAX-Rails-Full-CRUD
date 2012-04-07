@@ -1,0 +1,1 @@
+####Select multiple records using checkboxes and delete them without page refresh.
