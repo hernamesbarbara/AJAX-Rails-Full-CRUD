@@ -27,6 +27,20 @@ class GadgetsController < ApplicationController
   end
   
   def destroy_multiple
+    gadget_ids=(params[:gadget_ids])
+    to_delete=[]
+    gadget_ids.split(',').each do |gadget_id|
+      to_delete.push(Gadget.find(gadget_id))
+    end
+    puts gadget_ids
+    to_delete.each do |del|
+      del.destroy()
+    end
+    flash.now[:success] = "Prequals Destroyed Successfully"
+    respond_to do |format|
+      format.html { redirect_to widget_gadgets_path(@widget) }
+      format.json { render :json => to_delete.to_json }
+    end
   end
   
   def get_widget

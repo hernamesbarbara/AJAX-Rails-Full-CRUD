@@ -18,7 +18,8 @@
 = link_to 'Edit', edit_widget_path(@widget)
 \|
 = link_to 'Back', widgets_path
-
+\|
+=button_tag "Delete these", controller: 'gadgets', remote: true, class: 'button pill', id: 'delete-selected'
 :javascript
   //this method will toggle an individual 
   //checkbox between checked and unchecked
@@ -53,3 +54,39 @@
       }
     });
   });
+
+:coffeescript
+  $ ->
+    $("#delete-selected").click (event) ->
+      widget_id=$("#check-all").val()
+    
+      gadget_ids=[]
+      $.each $(".checkbox:checked"), (index, checkbox) ->
+        if $(checkbox).attr('name') != "check-all" and $(checkbox).val() not in gadget_ids
+          gadget_ids.push($(checkbox).val())
+
+      $.ajaxSetup cache: false, beforeSend: (xhr) ->
+        xhr.setRequestHeader "X-CSRF-Token", $("meta[name=\"csrf-token\"]").attr("content")
+    
+      $.ajax
+        type: "POST"
+        url: window.location.pathname+"/destroy_multiple"
+        data: "widget_id=" + widget_id + "&gadget_ids=" + gadget_ids
+        dataType: 'json'
+        success: (data) ->
+          msg=data
+          
+          ids_to_remove=[]
+          $.each $(msg), (index, gadget) ->
+            ids_to_remove.push(gadget.id)
+          
+          for id in ids_to_remove
+            table_row = $("input#gadget_" + id).parent().parent()
+            $(table_row).fadeOut 1000, ->
+              $(table_row).remove()
+
+
+
+
+
+
