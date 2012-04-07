@@ -13,6 +13,7 @@ gem 'simple_form'
 
 group :development, :test do
   gem 'rspec-rails', '2.8.1'
+  gem 'ffaker'
   gem 'shoulda-matchers'
   gem 'annotate', '~> 2.4.1.beta'
   gem 'database_cleaner'
