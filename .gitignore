@@ -1,0 +1,13 @@
+#git should ignore these files
+*.cache
+*.log
+*.pid
+*.pyc
+tmp/**/*
+.DS_Store
+
+##ingored files in pre qual rails app
+DestroyMultiple/tmp/*
+DestroyMultiple/.DS_Store
+DestroyMultiple/app/.DS_Store
+DestroyMultiple/log/*
