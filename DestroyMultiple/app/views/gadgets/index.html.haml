@@ -1,0 +1,55 @@
+%p#notice= notice
+
+%h1="Listing #{pluralize(@gadgets.count,'Gadget')} for #{@widget.name}"
+
+%table{ :cellpadding => "7;", :border => "1px solid #e8e9eb; font-size:20px;"}
+  %thead
+    %tr
+      %th{:style => 'background-color:#78c4e5;'} Created Date
+      %th{:style => 'background-color:#78c4e5;'} Gadget
+      %th{:style => 'background-color:#78c4e5;'}=check_box_tag 'check-all', @widget.id, false, :class => 'checkbox'
+
+  %tbody
+    -if @widget.gadgets.any?
+      =render @widget.gadgets
+%br/
+= link_to 'New Gadget', new_widget_gadget_path(@widget)
+\|
+= link_to 'Edit', edit_widget_path(@widget)
+\|
+= link_to 'Back', widgets_path
+
+:javascript
+  //this method will toggle an individual 
+  //checkbox between checked and unchecked
+  $(function() {
+    return $(".checkbox").click(function() {
+      var $checkbox = $(this)[0];
+      if ($checkbox.checked === true) {
+        return $($checkbox).attr("checked", "checked");
+      } else {
+        return $($checkbox).removeAttr("checked");
+      }
+    });
+  });
+
+  //this method will toggle ALL checkboxes 
+  //from checked to unchecked
+  $(function() {
+    return $("#check-all").click(function() {
+      if ($(this).attr("checked") != null) {
+        var $all = $(':checkbox');
+        return $.each($($all), function(index, box) {
+          var $box=$(box);
+          return $box.attr("checked", "checked");
+        });
+      } else {
+          var $all = $(':checkbox');
+          return $.each($($all), function(index, box) {
+          var $input;
+            var $box=$(box);
+          return $box.removeAttr('checked');
+        });
+      }
+    });
+  });

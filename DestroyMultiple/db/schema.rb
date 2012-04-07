@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120407143836) do
+ActiveRecord::Schema.define(:version => 20120407151906) do
+
+  create_table "gadgets", :force => true do |t|
+    t.string   "name"
+    t.integer  "widget_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "widgets", :force => true do |t|
     t.string   "name"

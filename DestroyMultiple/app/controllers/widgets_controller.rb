@@ -1,47 +1,37 @@
 class WidgetsController < ApplicationController
-  # GET /widgets
-  # GET /widgets.json
+  before_filter :find_widgets, only: [:index]
+  before_filter :find_widget, only: [ :show ]
+  before_filter :find_gadgets, only: [ :show ]
+  before_filter :ensure_parent,   only: [ :destroy, :destroy_multiple ]
+  
   def index
-    @widgets = Widget.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @widgets }
     end
   end
 
-  # GET /widgets/1
-  # GET /widgets/1.json
   def show
-    @widget = Widget.find(params[:id])
-
     respond_to do |format|
-      format.html # show.html.erb
+      format.html {redirect_to widget_gadgets_path(@widget)}
       format.json { render json: @widget }
     end
   end
 
-  # GET /widgets/new
-  # GET /widgets/new.json
   def new
     @widget = Widget.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @widget }
     end
   end
 
-  # GET /widgets/1/edit
   def edit
     @widget = Widget.find(params[:id])
   end
 
-  # POST /widgets
-  # POST /widgets.json
   def create
     @widget = Widget.new(params[:widget])
-
     respond_to do |format|
       if @widget.save
         format.html { redirect_to @widget, notice: 'Widget was successfully created.' }
@@ -53,11 +43,8 @@ class WidgetsController < ApplicationController
     end
   end
 
-  # PUT /widgets/1
-  # PUT /widgets/1.json
   def update
     @widget = Widget.find(params[:id])
-
     respond_to do |format|
       if @widget.update_attributes(params[:widget])
         format.html { redirect_to @widget, notice: 'Widget was successfully updated.' }
@@ -69,15 +56,32 @@ class WidgetsController < ApplicationController
     end
   end
 
-  # DELETE /widgets/1
-  # DELETE /widgets/1.json
   def destroy
     @widget = Widget.find(params[:id])
     @widget.destroy
-
     respond_to do |format|
       format.html { redirect_to widgets_url }
       format.json { head :ok }
     end
   end
+  
+  private
+  def find_widgets
+    @widgets = Widget.all
+  end
+  
+  def find_widget
+    @widget = Widget.find(params[:id])
+  end
+  
+  def find_gadgets
+    @gadgets = @widget.gadgets unless @widget.gadgets.nil?
+  end
+  
+  def ensure_parent
+    #verify that user can only delete gadgets belonging to this specific widget
+    @gadgets = @widget.gadgets.find_by_id(params[:gadget_ids])
+    redirect_to root_path, :notice => "Gadgets must belong to this widget" unless ! @gadgets.nil?
+  end
+  
 end

@@ -2,17 +2,17 @@
 
 %table{ :cellpadding => "7;", :border => "1px solid #e8e9eb; font-size:20px;"}
   %tr
-    %th{:style => 'background-color:#78c4e5;'} Name
+    %th{:style => 'background-color:#78c4e5;'} Widget Name
     %th{:style => 'background-color:#78c4e5;'} Description
-    %th{:style => 'background-color:#78c4e5;'}
-    %th{:style => 'background-color:#78c4e5;'}
-    %th{:style => 'background-color:#78c4e5;'}
+    %th{:style => 'background-color:#78c4e5;'} Gadgets
+    %th{:style => 'background-color:#78c4e5;'} Edit
+    %th{:style => 'background-color:#78c4e5;'} Destroy
 
   - @widgets.each do |widget|
     %tr
-      %td= widget.name
+      %td= link_to widget.name, widget_path(widget)
       %td= widget.description
-      %td= link_to 'Show', widget
+      %td{:style => 'text-align:center;'}= widget.gadgets.count
       %td= link_to 'Edit', edit_widget_path(widget)
       %td= link_to 'Destroy', widget, :confirm => 'Are you sure?', :method => :delete
 

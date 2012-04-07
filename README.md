@@ -8,7 +8,7 @@ Add gems to the Gemfile.
 
 Install Rspec for testing
 
-    rails generate rspec:install
+    rails g rspec:install
 
 Before you create your database, save desired database settings into the database.yml file. Then run
 
@@ -20,7 +20,7 @@ Setup database cleaner
 
 Generate scaffold for Widgets
 
-    rails generate scaffold Widget name:string description:string
+    rails g scaffold Widget name:string description:string
   
 Now run `rake db:migrate`
 
@@ -36,4 +36,15 @@ And now modify your routes.rb file to root_to the Widgets 'index'
 Create a rake task to populate your database with at least 1 Widget record.
 
     touch lib/tasks/sample_data.rake
+
+Create your Gadgets table with widget_id since gadgets will belong to widgets.
+
+    rails g model gadget name:string widget_id:integer
+    
+    rake db:migrate
+
+Now might be a good time to annotate your models using the annotate gem.
+
+    bundle exec annotate --position before
+    
 
