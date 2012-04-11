@@ -8,7 +8,7 @@ class WidgetsController < ApplicationController
   
   def index
     respond_to do |format|
-      format.html # index.html.erb
+      format.html #renders index.html.haml
       format.json { render json: @widgets }
     end
   end
@@ -23,7 +23,6 @@ class WidgetsController < ApplicationController
   def new
     @widget = Widget.new
     respond_to do |format|
-      #format.html # new.html.erb
       format.json { render json: @widget }
       format.js
     end
@@ -31,6 +30,11 @@ class WidgetsController < ApplicationController
 
   def edit
     @widget = Widget.find(params[:id])
+    respond_with(@widget) do |format|
+      format.html {render :partial => 'widgets/edit'}
+      format.json { }
+      format.js {  }
+    end
   end
 
   def create
