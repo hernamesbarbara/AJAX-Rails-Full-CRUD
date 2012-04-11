@@ -4,6 +4,8 @@ class WidgetsController < ApplicationController
   before_filter :find_gadgets, only: [ :show ]
   before_filter :ensure_parent,   only: [ :destroy, :destroy_multiple ]
   
+  respond_to :json, :html, :js
+  
   def index
     respond_to do |format|
       format.html # index.html.erb
@@ -21,8 +23,9 @@ class WidgetsController < ApplicationController
   def new
     @widget = Widget.new
     respond_to do |format|
-      format.html # new.html.erb
+      #format.html # new.html.erb
       format.json { render json: @widget }
+      format.js
     end
   end
 
@@ -32,13 +35,14 @@ class WidgetsController < ApplicationController
 
   def create
     @widget = Widget.new(params[:widget])
-    respond_to do |format|
+    respond_with(@widget) do |format|
       if @widget.save
-        format.html { redirect_to @widget, notice: 'Widget was successfully created.' }
-        format.json { render json: @widget, status: :created, location: @widget }
+        format.js { }
+        format.json { }
       else
-        format.html { render action: "new" }
+        #format.html { render action: "new" }
         format.json { render json: @widget.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
