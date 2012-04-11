@@ -1,16 +1,5 @@
-= form_for @widget do |f|
-  -if @widget.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@widget.errors.count, "error")} prohibited this widget from being saved:"
-      %ul
-        - @widget.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :description
-    = f.text_field :description
-  .actions
-    = f.submit 'Save'
+= form_for :widget, :url => widgets_path, remote: true do |f|
+  %tr{:id => "new-widget-form", :style => "display:none;"}
+    %td= f.text_field :name
+    %td= f.text_field :description
+    %td= f.submit 'Save', :id => 'save-record'

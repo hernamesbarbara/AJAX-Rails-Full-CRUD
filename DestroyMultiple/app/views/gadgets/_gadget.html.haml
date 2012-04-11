@@ -1,4 +1,4 @@
-%tr{ :id => gadget.id}
+%tr{ :id => 'gadget_#{gadget.id}'}
   %td= gadget.created_at.localtime.strftime("%B %d, %l:%M%p") 
   %td= gadget.name
   %td.delete{:style => 'text-align:center;'}

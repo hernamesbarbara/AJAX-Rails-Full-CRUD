@@ -1,0 +1,1 @@
+$('#widgets-table tr:last').before("<%= #{escape_javascript(render :partial => 'widgets/widget', :object => @widget)}%>");

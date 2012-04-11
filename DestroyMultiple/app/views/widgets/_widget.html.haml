@@ -1,0 +1,7 @@
+%tr{ :name => 'widget_', :id => widget.id }
+  %td= h link_to widget.name, widget_path(widget)
+  %td= widget.description
+  %td{:style => 'text-align:center;'}= widget.gadgets.count
+  %td= link_to 'Edit', edit_widget_path(widget)
+  %td= link_to 'Remove', widget_path(widget), :method => :delete
+
