@@ -31,9 +31,8 @@ class WidgetsController < ApplicationController
   def edit
     @widget = Widget.find(params[:id])
     respond_with(@widget) do |format|
-      format.html {render :partial => 'widgets/edit'}
-      format.json { }
-      format.js {  }
+      format.js { }
+      format.json {  }
     end
   end
 
@@ -53,12 +52,12 @@ class WidgetsController < ApplicationController
 
   def update
     @widget = Widget.find(params[:id])
-    respond_to do |format|
+    respond_with(@widget) do |format|
       if @widget.update_attributes(params[:widget])
-        format.html { redirect_to @widget, notice: 'Widget was successfully updated.' }
-        format.json { head :ok }
+        format.js { }
+        format.json { }
       else
-        format.html { render action: "edit" }
+        #format.html { render action: "edit" }
         format.json { render json: @widget.errors, status: :unprocessable_entity }
       end
     end

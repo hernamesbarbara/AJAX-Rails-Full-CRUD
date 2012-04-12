@@ -1,6 +1,11 @@
-%tr{:name => "widget_#{widget.id}", :id => "#{widget.id}" }
-  %td= h link_to widget.name, widget_path(widget), :remote => true
+=form_for :widget, :url => widget_path(widget), :method => :put, remote: true do |f|
+  %tr{:name => "widget_#{widget.id}", :id => "#{widget.id}" }
+    %td{:style => "display:none;"}= f.text_field :name, { :value => widget.name }
+    %td{:style => "display:none;"}= f.text_field :description, { :value => widget.description }
+    %td{:style => "display:none;"}= f.submit 'Update'
+  %td= h link_to widget.name, edit_widget_path(widget), :remote => true
   %td= widget.description
   %td{:style => 'text-align:center;'}= widget.gadgets.count
-  %td.edit-widget= link_to 'Edit', edit_widget_path(widget)
+  %td.edit-widget= link_to 'Edit', edit_widget_path(widget), {:id => "edit_widget_#{widget.id}"}
   %td= link_to 'Remove', widget_path(widget), :method => :delete
+    
