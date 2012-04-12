@@ -2,4 +2,7 @@
   %tr{:id => "new-widget-form", :style => "display:none;"}
     %td= f.text_field :name
     %td= f.text_field :description
-    %td= f.submit 'Save', :id => 'save-record'
+    %td{:id => "save-record"}= f.submit "Save" 
+    %td= link_to "Cancel", "#", {:id => 'cancel'}
+    
+    

@@ -10,6 +10,7 @@ gem 'haml-coffee-script'
 gem 'coffee-filter'
 gem 'jquery-rails'
 gem 'simple_form'
+gem 'best_in_place'
 
 group :development, :test do
   gem 'rspec-rails', '2.8.1'

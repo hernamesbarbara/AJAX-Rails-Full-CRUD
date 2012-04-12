@@ -6,6 +6,11 @@
     =javascript_include_tag "application"
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js", type: "text/javascript"}
     = csrf_meta_tags
+    :javascript
+      $(document).ready(function() {
+        /* Activating Best In Place */
+        jQuery(".best_in_place").best_in_place()
+      });
   %body
     = yield
   
