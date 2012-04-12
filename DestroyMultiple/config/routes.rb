@@ -14,6 +14,7 @@ DestroyMultiple::Application.routes.draw do
   end
   
   match "/:id" => 'widget#gadgets'
+  match "/destroy_multiple" => "widgets#destroy_multiple", :as => "destroy_multiple"
   root to: 'widgets#index'
 
 end

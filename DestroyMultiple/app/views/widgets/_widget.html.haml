@@ -2,6 +2,5 @@
   %td.big= h link_to widget.name, widget_path(widget)
   %td.big=best_in_place widget, :description, :type => :input, :nil => "click me to add"
   %td.small{:style => 'text-align:center;'}= widget.gadgets.count
-  -#%td.small= link_to 'Remove', widget_path(widget), :method => :delete
   %td.delete.small{:style => 'text-align:center;'}
     =check_box_tag "widget_ids[]", widget.id, false, :class => "checkbox", :id => "widget_#{widget.id}"

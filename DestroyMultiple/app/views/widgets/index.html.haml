@@ -12,7 +12,6 @@
     =render @widgets
     =render 'form'
 
-      
 
 %br
 
@@ -24,20 +23,18 @@
 :coffeescript
   $ ->
     $("#delete-selected").click (event) ->
-      #widget_id=$("#check-all").val()
-    
+      path=stripTrailingSlash(window.location.pathname)
+      path=path+"/widgets" if path==""
       widget_ids=[]
       $.each $(".checkbox:checked"), (index, checkbox) ->
         if $(checkbox).attr('name') != "check-all" and $(checkbox).val() not in widget_ids
           widget_ids.push($(checkbox).val())
-      console.log(widget_ids)
 
       $.ajaxSetup cache: false, beforeSend: (xhr) ->
         xhr.setRequestHeader "X-CSRF-Token", $("meta[name=\"csrf-token\"]").attr("content")
-    
       $.ajax
         type: "POST"
-        url: window.location.pathname+"destroy_multiple"
+        url: path+"/destroy_multiple"
         data: "widget_ids=" + widget_ids
         dataType: 'json'
         success: (data) ->
