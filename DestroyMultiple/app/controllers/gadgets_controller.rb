@@ -1,6 +1,7 @@
 class GadgetsController < ApplicationController
   before_filter :get_widget
   before_filter :widget_gadgets, only: [ :index ]
+  before_filter :ensure_parent,   only: [ :destroy, :destroy_multiple ]
   
   respond_to :json
   
@@ -56,6 +57,12 @@ class GadgetsController < ApplicationController
   def widget_gadgets
     @widget=Widget.find(params[:widget_id])
     @gadgets=@widget.gadgets unless @widget.gadgets.nil?
+  end
+  
+  def ensure_parent
+    #verify that user can only delete gadgets belonging to this specific widget
+    @gadgets = @widget.gadgets.find_by_id(params[:gadget_ids])
+    redirect_to root_path, :notice => "Gadgets must belong to this widget" unless ! @gadgets.nil?
   end
 
   

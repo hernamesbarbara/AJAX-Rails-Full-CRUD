@@ -2,7 +2,6 @@ class WidgetsController < ApplicationController
   before_filter :find_widgets, only: [:index]
   before_filter :find_widget, only: [ :show ]
   before_filter :find_gadgets, only: [ :show ]
-  before_filter :ensure_parent,   only: [ :destroy, :destroy_multiple ]
   
   respond_to :json, :html, :js
   
@@ -69,6 +68,23 @@ class WidgetsController < ApplicationController
     end
   end
   
+  def destroy_multiple
+    widget_ids=(params[:widget_ids])
+    to_delete=[]
+    widget_ids.split(',').each do |widget_id|
+      to_delete.push(Widget.find(widget_id))
+    end
+
+    to_delete.each do |del|
+      del.destroy()
+    end
+    flash.now[:success] = "Prequals Destroyed Successfully"
+    respond_to do |format|
+      format.html { redirect_to widgets_path }
+      format.json { render :json => to_delete.to_json }
+    end
+  end
+  
   private
   def find_widgets
     @widgets = Widget.all
@@ -80,12 +96,5 @@ class WidgetsController < ApplicationController
   
   def find_gadgets
     @gadgets = @widget.gadgets unless @widget.gadgets.nil?
-  end
-  
-  def ensure_parent
-    #verify that user can only delete gadgets belonging to this specific widget
-    @gadgets = @widget.gadgets.find_by_id(params[:gadget_ids])
-    redirect_to root_path, :notice => "Gadgets must belong to this widget" unless ! @gadgets.nil?
-  end
-  
+  end  
 end

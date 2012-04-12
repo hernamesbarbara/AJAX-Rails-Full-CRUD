@@ -3,6 +3,9 @@ DestroyMultiple::Application.routes.draw do
   resources :gadgets, :only => [ :new, :create ]
   
   resources :widgets do
+    collection do
+      post :destroy_multiple
+    end
     resources :gadgets do
       collection do
         post :destroy_multiple

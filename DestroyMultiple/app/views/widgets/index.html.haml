@@ -6,7 +6,7 @@
       %th{:style => 'background-color:#78c4e5;'} Widget Name
       %th{:style => 'background-color:#78c4e5;'} Description
       %th{:style => 'background-color:#78c4e5;'} Gadgets
-      %th{:style => 'background-color:#78c4e5;'} Destroy
+      %th{:style => 'background-color:#78c4e5;'}=check_box_tag 'check-all', "check-all", false, :class => 'checkbox'
 
   %tbody
     =render @widgets
@@ -17,6 +17,38 @@
 %br
 
 = link_to 'New Widget', new_widget_path, {:id => 'new-widget'}
+| 
+
+=button_tag "Delete Selected", controller: 'widgets', remote: true, class: 'button pill', id: 'delete-selected'
 
 :coffeescript
+  $ ->
+    $("#delete-selected").click (event) ->
+      #widget_id=$("#check-all").val()
+    
+      widget_ids=[]
+      $.each $(".checkbox:checked"), (index, checkbox) ->
+        if $(checkbox).attr('name') != "check-all" and $(checkbox).val() not in widget_ids
+          widget_ids.push($(checkbox).val())
+      console.log(widget_ids)
+
+      $.ajaxSetup cache: false, beforeSend: (xhr) ->
+        xhr.setRequestHeader "X-CSRF-Token", $("meta[name=\"csrf-token\"]").attr("content")
+    
+      $.ajax
+        type: "POST"
+        url: window.location.pathname+"destroy_multiple"
+        data: "widget_ids=" + widget_ids
+        dataType: 'json'
+        success: (data) ->
+          msg=data
+          
+          ids_to_remove=[]
+          $.each $(msg), (index, gadget) ->
+            ids_to_remove.push(gadget.id)
+          
+          for id in ids_to_remove
+            table_row = $("input#widget_" + id).parent().parent()
+            $(table_row).fadeOut 1000, ->
+              $(table_row).remove()
 
