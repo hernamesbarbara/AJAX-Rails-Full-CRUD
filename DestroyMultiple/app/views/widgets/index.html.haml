@@ -49,3 +49,10 @@
             $(table_row).fadeOut 1000, ->
               $(table_row).remove()
 
+          flash_msg=""
+          if ids_to_remove.length==1
+            flash_msg=" Widget Destroyed"
+          else
+            flash_msg=" Widgets Destroyed"
+            
+          noty(text: ids_to_remove.length + flash_msg, layout : 'top', type: 'information')

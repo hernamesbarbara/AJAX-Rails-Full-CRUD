@@ -24,6 +24,7 @@
 :coffeescript
   $ ->
     $("#delete-selected").click (event) ->
+      path=stripTrailingSlash(window.location.pathname)
       widget_id=$("#check-all").val()
     
       gadget_ids=[]
@@ -36,7 +37,7 @@
     
       $.ajax
         type: "POST"
-        url: window.location.pathname+"/destroy_multiple"
+        url: path+"/destroy_multiple"
         data: "widget_id=" + widget_id + "&gadget_ids=" + gadget_ids
         dataType: 'json'
         success: (data) ->
@@ -50,6 +51,14 @@
             table_row = $("input#gadget_" + id).parent().parent()
             $(table_row).fadeOut 1000, ->
               $(table_row).remove()
+          
+          flash_msg=""
+          if ids_to_remove.length==1
+            flash_msg=" Gadget Destroyed"
+          else
+            flash_msg=" Gadgets Destroyed"
+            
+          noty(text: ids_to_remove.length + flash_msg, layout : 'top', type: 'information')
 
 
 
