@@ -2,7 +2,7 @@
 
 %h1="Listing #{pluralize(@gadgets.count,'Gadget')} for #{@widget.name}"
 
-%table{ :cellpadding => "7;", :border => "1px solid #e8e9eb; font-size:20px;"}
+%table{:id => 'gadgets-table', :cellpadding => "7;", :border => "1px solid #e8e9eb; font-size:20px;"}
   %thead
     %tr
       %th{:style => 'background-color:#78c4e5;'} Created Date
@@ -22,6 +22,7 @@
 =button_tag "Delete these", controller: 'gadgets', remote: true, class: 'button pill', id: 'delete-selected'
 
 :coffeescript
+  $("#gadgets-table").children().sortable()
   $ ->
     $("#delete-selected").click (event) ->
       path=stripTrailingSlash(window.location.pathname)

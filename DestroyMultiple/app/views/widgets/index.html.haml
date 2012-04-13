@@ -21,6 +21,7 @@
 =button_tag "Delete Selected", controller: 'widgets', remote: true, class: 'button pill', id: 'delete-selected'
 
 :coffeescript
+  $("#widgets-table").children().sortable()
   $ ->
     $("#delete-selected").click (event) ->
       path=stripTrailingSlash(window.location.pathname)
