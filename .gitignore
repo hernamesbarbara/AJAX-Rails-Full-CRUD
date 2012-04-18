@@ -7,7 +7,7 @@ tmp/**/*
 .DS_Store
 
 ##ingored files in pre qual rails app
-DestroyMultiple/tmp/*
-DestroyMultiple/.DS_Store
-DestroyMultiple/app/.DS_Store
-DestroyMultiple/log/*
+Ajax-Rails-Full-CRUD/tmp/*
+Ajax-Rails-Full-CRUD/.DS_Store
+Ajax-Rails-Full-CRUD/app/.DS_Store
+Ajax-Rails-Full-CRUD/log/*
