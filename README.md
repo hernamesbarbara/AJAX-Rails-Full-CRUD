@@ -2,7 +2,7 @@
 
 Create a new rails application. Use `-T` to tell Rails not to create unit tests. Use `-d postgresql` to tell Rails to use Postgres instead of SQLite.
 
-    rails new DestroyMultiple -T -d postgresql
+    rails new AjaxRailsFullCrud -T -d postgresql
   
 Add gems to the Gemfile.
 

@@ -2,19 +2,19 @@
 common: &common
     adapter: postgresql
     username: postgres
-    password: password
+    password: Austin1234
     host: localhost
     port: 5432
     
 development:
     <<: *common
-    database: destroy_multiple_development
+    database: ajaxrailsfullcrud_multiple_development
 
 test:
     <<: *common
-    database: destroy_multiple_test
+    database: ajaxrailsfullcrud_test
 
 production:
     <<: *common
-    database: destroy_multiple_production
+    database: ajaxrailsfullcrud_production
   

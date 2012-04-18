@@ -1,4 +1,4 @@
-DestroyMultiple::Application.routes.draw do
+AjaxRailsFullCrud::Application.routes.draw do
   resources :widgets
   resources :gadgets, :only => [ :new, :create ]
   
