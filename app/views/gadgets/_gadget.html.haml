@@ -1,5 +1,5 @@
-%tr{ :id => 'gadget_#{gadget.id}'}
+%tr{ :name => "gadget_", :id => "gadget_id_#{gadget.id}" }
   %td= gadget.created_at.localtime.strftime("%B %d, %l:%M%p") 
-  %td= gadget.name
+  %td.big=best_in_place gadget, :name, :path => [@widget, gadget]
   %td.delete{:style => 'text-align:center;'}
-    =check_box_tag "gadget_ids[]", gadget.id, false, :class => "checkbox", :id => "gadget_#{gadget.id}"
+    =check_box_tag "gadget_ids[]", gadget.id, false, :class => "checkbox"

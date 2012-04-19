@@ -10,10 +10,11 @@
       %th{:style => 'background-color:#78c4e5;'}=check_box_tag 'check-all', @widget.id, false, :class => 'checkbox'
 
   %tbody
-    -if @widget.gadgets.any?
-      =render @widget.gadgets
+    =render @widget.gadgets
+    =render 'form'
 %br/
-= link_to 'New Gadget', new_widget_gadget_path(@widget)
+= link_to 'New Gadget', new_widget_gadget_path(@widget), {:id => 'new-gadget'}
+
 \|
 = link_to 'Edit', edit_widget_path(@widget)
 \|
@@ -49,7 +50,7 @@
             ids_to_remove.push(gadget.id)
           
           for id in ids_to_remove
-            table_row = $("input#gadget_" + id).parent().parent()
+            table_row = $("tr#gadget_id_" + id)
             $(table_row).fadeOut 1000, ->
               $(table_row).remove()
           

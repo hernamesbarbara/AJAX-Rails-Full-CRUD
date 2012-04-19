@@ -1,6 +1,6 @@
 AjaxRailsFullCrud::Application.routes.draw do
   resources :widgets
-  resources :gadgets, :only => [ :new, :create ]
+  resources :gadgets, :only => [ :new, :create, :edit, :update ]
   
   resources :widgets do
     collection do

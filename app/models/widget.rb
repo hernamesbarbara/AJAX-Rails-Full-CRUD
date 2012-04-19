@@ -12,4 +12,5 @@
 class Widget < ActiveRecord::Base
   validates_presence_of :name
   has_many :gadgets
+  attr_accessible :name, :description
 end

@@ -11,4 +11,5 @@
 
 class Gadget < ActiveRecord::Base
   belongs_to :widget
+  attr_accessible :name, :widget_id, :id
 end

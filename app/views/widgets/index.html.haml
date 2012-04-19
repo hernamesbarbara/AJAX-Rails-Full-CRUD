@@ -42,8 +42,8 @@
           msg=data
           
           ids_to_remove=[]
-          $.each $(msg), (index, gadget) ->
-            ids_to_remove.push(gadget.id)
+          $.each $(msg), (index, widget) ->
+            ids_to_remove.push(widget.id)
           
           for id in ids_to_remove
             table_row = $("input#widget_" + id).parent().parent()

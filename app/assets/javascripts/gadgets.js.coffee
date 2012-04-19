@@ -1,3 +1,10 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+x = $(document).ready ->
+  $("a#new-gadget").click (event) ->
+    event.preventDefault()
+    $form=$("#new-gadget-form")
+    $form.fadeIn(300)
+    
+  $("a#cancel").click (event) ->
+    event.preventDefault()
+    $form=$("#new-gadget-form")
+    $form.hide()

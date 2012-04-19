@@ -1,14 +1,5 @@
-= form_for(@gadget, :url => widget_gadgets_path(@widget)) do |f|
-  -if @gadget.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@gadget.errors.count, "error")} prohibited this gadget from being saved:"
-      %ul
-        - @gadget.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :name
-    = f.text_field :name
-
-  .actions
-    = f.submit 'Save'
+= form_for :gadget, :url => widget_gadgets_path(@widget), remote: true do |f|
+  %tr{:id => "new-gadget-form", :style => "display:none;"}
+    %td= f.text_field :name
+    %td{:id => "save-record"}= f.submit "Save" 
+    %td= link_to "Cancel", "#", {:id => 'cancel'}
